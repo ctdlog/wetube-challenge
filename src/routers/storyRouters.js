@@ -1,14 +1,15 @@
 import express from "express";
+
 import {
-  watchStory,
+  seeStory,
   editStory,
   deleteStory,
-} from "../controllers/storyController";
+} from "../controllers/storiesController";
 
 const storyRouter = express.Router();
 
-storyRouter.get("/:id(\\d+)", watchStory);
-storyRouter.get("/:id(\\d+)/edit", editStory);
-storyRouter.get("/:id(\\d+)/delete", deleteStory);
+storyRouter.get("/:id", seeStory);
+storyRouter.get("/:id/edit", editStory);
+storyRouter.get("/:id/delete", deleteStory);
 
 export default storyRouter;
