@@ -1,4 +1,5 @@
-mixin movie(movie)
+mixin movie(video = {})
     div
-        a(href=`/${movie.id}`)=movie.title
+        a(href=`/${video.id}`)
+            h3=video.title
             

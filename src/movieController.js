@@ -7,8 +7,9 @@ import {
 
 export const home = async (req, res) => {
   const movies = getMovies();
-  return res.render("home", { movies });
+  return res.render("movies", { movies });
 };
+
 export const movieDetail = (req, res) => {
   const { id } = req.params;
   const movie = getMovieById(id);
@@ -16,24 +17,42 @@ export const movieDetail = (req, res) => {
   return res.render("detail", { movie, genres });
 };
 
-export const getFilterMovie = (req, res) => {
-  return res.render("filter");
-};
-
-export const postFilterMovie = (req, res) => {
-  const { year, rating } = req.body;
-  console.log(year);
-  if (!year) {
-    const filterByRating = getMovieByMinimumRating(rating);
-    return res.render("filter", {
-      filterByRating,
-      rating,
-    });
-  } else {
-    const filterByYear = getMovieByMinimumYear(year);
-    return res.render("filter", {
-      filterByYear,
-      year,
+export const filterMovie = (req, res) => {
+  const {
+    query: { year, rating },
+  } = req;
+  if (year) {
+    const movies = getMovieByMinimumYear(year);
+    return res.render("movies", {
+      searchingBy: "year",
+      searchingTerm: year,
+      movies,
     });
   }
+  if (rating) {
+    const movies = getMovieByMinimumRating(rating);
+    return res.render("movies", {
+      pageTitle: `Searching by rating: ${rating}`,
+      movies,
+    });
+  }
+  res.render("404", { pageTitle: "Movie not found" });
+};
+
+export const getUpload = (req, res) => {
+  return res.render("upload");
+};
+
+export const postUpload = (req, res) => {
+  const movies = getMovies();
+  const { title, synopsis, genres } = req.body;
+  console.log(req.body);
+  const newMovie = {
+    title,
+    synopsis,
+    genres,
+    id: Object.keys(movies).length + 1,
+  };
+  movies.push(newMovie);
+  return res.redirect("/");
 };

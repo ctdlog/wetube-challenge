@@ -1,0 +1,8 @@
+extends partials/base
+
+block content 
+    form(method="POST")
+        input(placeholder="Title", required, type="text", name="title")
+        input(placeholder="Synopsis", required, type="text", name="synopsis")
+        input(placeholder="Genres", required, type="text", name="genres")
+        input(type="submit" value="Add Movie")
