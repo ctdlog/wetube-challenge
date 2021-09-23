@@ -1,0 +1,11 @@
+extends base
+include mixins/movie
+
+block content
+    include partials/form
+    if filterByYear
+        each movie in filterByYear
+            +movie(movie)
+    else if filterByRating
+        each movie in filterByRating
+            +movie(movie)

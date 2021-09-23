@@ -1,4 +1,10 @@
-extends layout
+extends base
+include mixins/movie
 
 block content
-  h1 Home
+    include partials/form
+    each movie in movies
+        +movie(movie)
+    else 
+        h2 Sorry nothing found.
+         
