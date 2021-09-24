@@ -1,3 +1,5 @@
+import "./db";
+import "./models/Movie";
 import express from "express";
 import morgan from "morgan";
 // import {
@@ -8,7 +10,7 @@ import morgan from "morgan";
 // } from "./middelwares";
 import movieRouter from "./movieRouter";
 
-const PORT = 4000;
+const PORT = 5000;
 
 const app = express();
 const logger = morgan("dev");
