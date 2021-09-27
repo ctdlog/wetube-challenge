@@ -1,0 +1,9 @@
+extends partials/layout
+include mixins/movie
+
+block content
+    h2 Home
+    each movie in movies
+      +movie(movie)
+    else
+      li Sorry nothing found.

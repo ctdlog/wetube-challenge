@@ -1,8 +1,17 @@
-extends partials/base
+extends partials/layout
 
-block content 
-    form(method="POST")
-        input(placeholder="Title", required, type="text", name="title")
-        input(placeholder="Synopsis", required, type="text", name="synopsis")
-        input(placeholder="Genres", required, type="text", name="genres")
-        input(type="submit" value="Add Movie")
+block content
+  if errorMessage 
+    span=errorMessage
+  form(method="POST")
+    input(placeholder="Title", required, type="text", name="title")
+    input(placeholder="Summary", required, type="text", name="summary")
+    input(placeholder="Year", required, type="text", name="year")
+    input(placeholder="Rating", required, type="text", name="rating")
+    input(placeholder="Genres", required, type="text", name="genres")
+    input(type="submit", value="Upload Movie")
+
+    
+
+
+

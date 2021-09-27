@@ -1,5 +1,10 @@
-mixin movie(video = {})
+mixin movie(movie)
     div
-        a(href=`/${video.id}`)
-            h3=video.title
-            
+        h4
+            a(href=`/movies/${movie.id}`)=movie.title
+        p=movie.summary
+        small #{movie.year}년 / #{movie.rating}점
+        li=movie.genres
+        hr
+        
+        

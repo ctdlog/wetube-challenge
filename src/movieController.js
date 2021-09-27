@@ -1,58 +1,46 @@
-import {
-  getMovieById,
-  getMovies,
-  getMovieByMinimumRating,
-  getMovieByMinimumYear,
-} from "./db";
+/*
+You DONT have to import the Movie with your username.
+Because it's a default export we can nickname it whatever we want.
+So import Movie from "./models"; will work!
+You can do Movie.find() or whatever you need like normal!
+*/
+import Movie from "./models/Movie";
+
+// Add your magic here!
 
 export const home = async (req, res) => {
-  const movies = getMovies();
-  return res.render("movies", { movies });
-};
-
-export const movieDetail = (req, res) => {
-  const { id } = req.params;
-  const movie = getMovieById(id);
-  const { genres } = movie;
-  return res.render("detail", { movie, genres });
-};
-
-export const filterMovie = (req, res) => {
-  const {
-    query: { year, rating },
-  } = req;
-  if (year) {
-    const movies = getMovieByMinimumYear(year);
-    return res.render("movies", {
-      searchingBy: "year",
-      searchingTerm: year,
-      movies,
-    });
-  }
-  if (rating) {
-    const movies = getMovieByMinimumRating(rating);
-    return res.render("movies", {
-      pageTitle: `Searching by rating: ${rating}`,
-      movies,
-    });
-  }
-  res.render("404", { pageTitle: "Movie not found" });
+  const movies = await Movie.find({});
+  return res.render("home", { pageTitle: "Home", movies });
 };
 
 export const getUpload = (req, res) => {
-  return res.render("upload");
+  return res.render("upload", { pageTitle: "Upload" });
 };
 
-export const postUpload = (req, res) => {
-  const movies = getMovies();
-  const { title, synopsis, genres } = req.body;
-  console.log(req.body);
-  const newMovie = {
-    title,
-    synopsis,
-    genres,
-    id: Object.keys(movies).length + 1,
-  };
-  movies.push(newMovie);
-  return res.redirect("/");
+export const postUpload = async (req, res) => {
+  const { title, summary, year, rating, genres } = req.body;
+  try {
+    await Movie.create({
+      title,
+      summary,
+      year,
+      rating,
+      genres: genres.split(","),
+    });
+    return res.redirect("/");
+  } catch (error) {
+    console.log(error);
+    return res.render("upload", {
+      pageTitle: "Upload",
+      errorMessage: error._message,
+    });
+  }
 };
+
+export const seeMovie = (req, res) => {};
+
+export const editMovie = (req, res) => {};
+
+export const deleteMovie = (req, res) => {};
+
+export const search = (req, res) => {};
