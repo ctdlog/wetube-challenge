@@ -6,13 +6,28 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css")
         link(rel="stylesheet", href="https://unpkg.com/mvp.css")
-        title Wetube Challenge
+        title #{pageTitle} | #{siteTitle}
     body
-        h1 Welcome to Movies
+        header
+            h1=pageTitle
         nav
            ul
             li
                 a(href="/") Home
+            if loggedIn
+                li 
+                    a(href="/logout") Log Out
+                li 
+                    a(href="/my-profile") #{loggedInUser.name}의 Profile
+            else 
+                li 
+                    a(href="/join") Join
+                li 
+                    a(href="/login") Login
             li
                 a(href="/upload") Upload
-        block content
+            li 
+                a(href="/search") Search
+        main
+            block content
+        include footer

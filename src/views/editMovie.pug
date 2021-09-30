@@ -1,0 +1,11 @@
+extends partials/layout 
+
+block content 
+    h4 Change Title of Movie
+    form(method="POST")
+        input(placeholder="Movie Title", value=movie.title, required, name="title")
+        input(placeholder="Summary", required, value=movie.summary,type="text", name="summary")
+        input(placeholder="Year", required,  value=movie.year,type="text", name="year")
+        input(placeholder="Rating", required, value=movie.rating,type="text", name="rating")
+        input(placeholder="Genres", required, value=movie.genres.join(),type="text", name="genres")
+        input(value="Save", type="Submit")

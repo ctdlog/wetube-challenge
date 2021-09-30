@@ -4,7 +4,9 @@ mixin movie(movie)
             a(href=`/movies/${movie.id}`)=movie.title
         p=movie.summary
         small #{movie.year}년 / #{movie.rating}점
-        li=movie.genres
+        ul
+            each genre in movie.genres
+                li=genre
         hr
         
         

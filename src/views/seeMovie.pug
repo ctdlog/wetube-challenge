@@ -1,0 +1,10 @@
+extends partials/layout
+
+block content
+    div
+        h4=movie.title
+        p=movie.summary
+        small=movie.year
+    a(href=`${movie.id}/edit`) Edit Movie &rarr;
+    br
+    a(href=`${movie.id}/delete`) Delete Movie &rarr;
